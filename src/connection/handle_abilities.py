@@ -2,7 +2,7 @@ from .database import *
 from .database import DatabaseConnection
 
 
-def add_ability(ability, user):
+def add_ability(ability, user) -> bool:
     name = ability['name']
     type_ = ability['type']
     casting = ability['casting']
@@ -31,8 +31,10 @@ def add_ability(ability, user):
             item_id = item['id']
             cursor.execute('INSERT INTO items_abilities (ability_id, item_id) VALUES (?, ?)', (ability_id, item_id))
 
+    return True
 
-def update_ability(ability, id_):
+
+def update_ability(ability, id_) -> bool:
     name = ability['name']
     type_ = ability['type']
     casting = ability['casting']
@@ -48,6 +50,8 @@ def update_ability(ability, id_):
         cursor.execute('UPDATE abilities SET name=?, casting=?, components=?, requirements=?, conditions=?,'
                        'effects=?, description=? WHERE id=?',
                        (name, casting, components, requirements, conditions, effects, description, id_))
+
+    return True
 
 
 def get_abilities():

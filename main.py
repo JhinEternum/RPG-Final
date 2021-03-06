@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 import tkinter.font as font
+from typing import Union
 
+from src.ability.create_ability import CreateAbility
 from src.avatar.create_avatar import CreateAvatar
 from src.home.home import Home
 from src.item.create_item import CreateItem
@@ -26,28 +28,27 @@ class Game(tk.Tk):
 
         self.frames = dict()
 
-        self.home_frame = None
+        self.home = None
         self.create_avatar = None
         self.create_item = None
+        self.create_ability = None
+        self.create_title = None
 
         self.frames = {
-            Home: self.home_frame,
+            Home: self.home,
             CreateAvatar: self.create_avatar,
-            CreateItem: self.create_item
+            CreateItem: self.create_item,
+            CreateAbility: self.create_ability
         }
 
-        self.home_frame = Home(
+        self.home = Home(
             parent=self,
             create_entity=self.create_entity_frame,
             proficiencies_level=self.show_proficiencies_level,
         )
-        self.home_frame.grid(row=0, column=0, sticky='NSEW')
+        self.home.grid(row=0, column=0, sticky='NSEW')
 
-        self.frames = {
-            Home: self.home_frame,
-            CreateAvatar: self.create_avatar,
-            CreateItem: self.create_item
-        }
+        self.frames[Home] = self.home
 
         self.show_frame(Home)
 
@@ -65,21 +66,24 @@ class Game(tk.Tk):
         container = container_class(parent=self, home=lambda: self.show_frame(Home), extra_frame=extra_frame)
         container.grid(row=0, column=0, sticky='NSEW')
 
-        self.frames[container_class] = container
-        self.show_frame(container_class)
+        frame = self.set_frames_to_attributes(container_class, container)
 
-        self.set_frames_to_attributes(container_class, container)
+        self.frames[container_class] = frame
+        self.show_frame(container_class)
 
     def set_frames_to_attributes(self, container_class, container):
         if container_class == CreateAvatar:
             self.create_avatar = container
+            return self.create_avatar
         elif container_class == CreateItem:
             self.create_item = container
+            return self.create_item
+        elif container_class == CreateAbility:
+            self.create_ability = container
+            return self.create_ability
 
     def show_proficiencies_level(self, **kwargs) -> None:
-        # proficiencies: list, proficiency_result: list, edit: EditUser = None, user_proficiencies: list = None
-        # ProficiencyLevel(self, proficiencies, proficiency_result, self.create_avatar_frame, edit, user_proficiencies)
-        ProficiencyLevel(parent=self, create_avatar=self.create_avatar, **kwargs)
+        ProficiencyLevel(parent=self, **kwargs)
 
 
 root = Game()

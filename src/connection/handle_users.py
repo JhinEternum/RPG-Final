@@ -1,5 +1,5 @@
 from .database import *
-from .database import DatabaseConnection, get_items_attributes
+from .database import DatabaseConnection
 from src.connection.handle_abilities import get_abilities_by_id
 from src.connection.handle_titles import get_titles_by_id
 from src.connection.handle_proficiencies import get_proficiencies_by_id
@@ -11,7 +11,7 @@ def get_list(cursor) -> list:
 
 
 # --- USERS ---
-def add_user(user) -> None:
+def add_user(user) -> bool:
     name = user['name']
     type_ = user['type']
     strength_lv = user['strength_lv']
@@ -54,8 +54,10 @@ def add_user(user) -> None:
                 cursor.execute('INSERT INTO users_proficiencies (proficiency_id, level, user_name) VALUES (?, ?, ?)',
                                (proficiency[0], proficiency[1], name))
 
+    return True
 
-def update_user(user, current_name) -> None:
+
+def update_user(user, current_name) -> bool:
     name = user['name']
     type_ = user['type']
     strength_lv = user['strength_lv']
@@ -104,6 +106,8 @@ def update_user(user, current_name) -> None:
             for proficiency in proficiencies_id:
                 cursor.execute('INSERT INTO users_proficiencies (proficiency_id, level, user_name) VALUES (?, ?, ?)',
                                (proficiency[0], proficiency[1], name))
+
+    return True
 
 
 def get_users_name(name, type_):

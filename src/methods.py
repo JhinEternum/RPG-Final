@@ -40,6 +40,28 @@ def choose_user(character, npc, monster):
     return user
 
 
+def choose_user_ability(character, npc, monster, item):
+    user = []
+
+    if character != 'None':
+        value = (character, 1)
+        user.extend(value)
+    elif npc != 'None':
+        value = (npc, 2)
+        user.extend(value)
+    elif monster != 'None':
+        value = (monster, 3)
+        user.extend(value)
+    elif item != 'None':
+        value = (item, 4)
+        user.extend(value)
+    else:
+        value = ('Character', 1)
+        user.extend(value)
+
+    return user
+
+
 def handle_selection_change(list_widget, total_list):
     selected_indices = list_widget.curselection()
     result_list = []

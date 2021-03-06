@@ -2,7 +2,7 @@ from .database import *
 from .database import DatabaseConnection
 
 
-def add_title(title, users_names):
+def add_title(title, users_names) -> bool:
     name = title['name']
     description = title['description']
     requirements = title['requirements']
@@ -19,8 +19,10 @@ def add_title(title, users_names):
             for user_name in users_names:
                 cursor.execute('INSERT INTO users_titles (title_id, user_name) VALUES (?, ?)', (title_id, user_name))
 
+    return True
 
-def update_title(title, id_):
+
+def update_title(title, id_) -> bool:
     name = title['name']
     description = title['description']
     requirements = title['requirements']
@@ -30,6 +32,8 @@ def update_title(title, id_):
 
         cursor.execute('UPDATE titles SET name=?, description=?, requirements=? WHERE id=?',
                        (name, description, requirements, id_))
+
+    return True
 
 
 def get_titles():

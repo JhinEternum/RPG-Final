@@ -2,7 +2,7 @@ from .database import *
 from .database import DatabaseConnection
 
 
-def add_proficiency(proficiency):
+def add_proficiency(proficiency) -> bool:
     proficiency_name = proficiency['name']
     proficiency_description = proficiency['description']
 
@@ -12,8 +12,10 @@ def add_proficiency(proficiency):
         cursor.execute('INSERT INTO proficiencies (name, description) VALUES (?, ?)',
                        (proficiency_name, proficiency_description))
 
+    return True
 
-def update_proficiency(proficiency, id_):
+
+def update_proficiency(proficiency, id_) -> bool:
     name = proficiency['name']
     description = proficiency['description']
 
@@ -22,6 +24,8 @@ def update_proficiency(proficiency, id_):
 
         cursor.execute('UPDATE proficiencies SET name=?, description=? WHERE id=?',
                        (name, description, id_))
+
+    return True
 
 
 def get_proficiencies():

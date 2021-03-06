@@ -1,5 +1,3 @@
-from typing import Union
-
 from .database import *
 from .database import DatabaseConnection
 from src.connection.handle_abilities import get_abilities_by_id
@@ -25,8 +23,8 @@ def add_item(item, user_name) -> bool:
     with DatabaseConnection('data.db') as connection:
         cursor = connection.cursor()
 
-        cursor.execute('INSERT INTO items (name, type, reduction, damage, range, health, area, effects, '
-                       'description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        cursor.execute('INSERT INTO items (name, type, reduction, damage, range, health, area, effects, description) '
+                       'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
                        (name, type_, reduction, damage, range_, health, area, effects, description))
 
         item_id = cursor.lastrowid

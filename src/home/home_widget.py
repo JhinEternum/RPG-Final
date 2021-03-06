@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
+from src.ability.create_ability import CreateAbility
 from src.avatar.create_avatar import CreateAvatar
 from src.item.create_item import CreateItem
 
@@ -81,7 +82,7 @@ class HomeWidget:
         create_ability_button = ttk.Button(
             buttons,
             text='Crate Ability',
-            command=lambda: self.create_entity(container=main.create_avatar, container_class=CreateAvatar),
+            command=lambda: self.create_entity(container=main.create_ability, container_class=CreateAbility),
             cursor='hand2'
         )
         create_ability_button.grid(row=3)

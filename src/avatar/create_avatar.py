@@ -25,7 +25,11 @@ class CreateAvatar(TemplateScrollFrame):
         proficiency_result = get_entities_ids(self.avatar_widget.proficiencies_total, proficiencies)
 
         if len(proficiencies) > 0:
-            self.proficiencies_level(proficiencies=proficiencies, proficiency_result=proficiency_result)
+            self.proficiencies_level(
+                proficiencies=proficiencies,
+                proficiency_result=proficiency_result,
+                create_avatar=self
+            )
         else:
             self.create_avatar()
 
